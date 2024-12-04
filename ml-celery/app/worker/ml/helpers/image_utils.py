@@ -1,4 +1,3 @@
-
 import cv2
 import requests
 import numpy as np
@@ -11,7 +10,7 @@ from settings import ml_config
 
 def read_image_from_path_to_numpy(path):
     image = Image.open(path)
-    image = image.convert('RGB')
+    image = image.convert("RGB")
     return np.asarray(image)
 
 
@@ -38,22 +37,28 @@ def read_image_from_url(url):
 
 def io_bytes_to_numpy(io_bytes):
     image = Image.open(BytesIO(io_bytes))
-    image = image.convert('RGB')
-    return  np.asarray(image)
-
+    image = image.convert("RGB")
+    return np.asarray(image)
 
 
 def crop_and_recog_to_bytes(boxes, image):
     crop = []
+
     def crop_bytes(ymin, xmin, ymax, xmax):
         crop_image = image[ymin:ymax, xmin:xmax]
         pil_im = Image.fromarray(crop_image)
         b = BytesIO()
-        pil_im.save(b, 'jpeg')
+        pil_im.save(b, "jpeg")
         im_bytes = b.getvalue()
         return im_bytes
+
     if len(boxes) == 1:
-        ymin, xmin, ymax, xmax = int(boxes[0][0]), int(boxes[0][1]), int(boxes[0][2]), int(boxes[0][3])
+        ymin, xmin, ymax, xmax = (
+            int(boxes[0][0]),
+            int(boxes[0][1]),
+            int(boxes[0][2]),
+            int(boxes[0][3]),
+        )
         crop.append(crop_bytes(ymin, xmin, ymax, xmax))
     else:
         for box in boxes:
@@ -72,9 +77,11 @@ def get_center_point(coordinate_dict: dict):
     return di
 
 
-def sort_result_detection_follow_class_id(detection_boxes, detection_scores, detection_classes, num_class):              
+def sort_result_detection_follow_class_id(
+    detection_boxes, detection_scores, detection_classes, num_class
+):
     detection_boxes = np.array(detection_boxes)
-    detection_classes= np.array(detection_classes)
+    detection_classes = np.array(detection_classes)
     detection_scores = np.array(detection_scores)
     end_boxes = []
     end_score = []

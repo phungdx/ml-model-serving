@@ -4,12 +4,12 @@ import configparser
 
 
 cfg = configparser.ConfigParser()
-cfg.read('./environment.ini')
+cfg.read("./environment.ini")
 
-#=========================================================================
-#                          CELERY INFORMATION 
-#=========================================================================
-CELERY = cfg['celery']
+# =========================================================================
+#                          CELERY INFORMATION
+# =========================================================================
+CELERY = cfg["celery"]
 
 # Set worker to ack only when return or failing (unhandled expection)
 task_acks_late = True
@@ -27,10 +27,10 @@ result_expires = 60 * 60 * 48  # 48 hours in seconds
 
 
 # #=========================================================================
-# #                          ML INFORMATION 
+# #                          ML INFORMATION
 # #=========================================================================
-ML_OBJECT_DETECTION_TASK_NAME = CELERY['object_detection_task']
-ML_STORAGE_PATH = CELERY['storage_path']
-ML_STORAGE_UPLOAD_PATH = CELERY['storage_upload_path']
-ML_STORAGE_OBJECT_DETECTION_PATH = CELERY['storage_object_detection_path']
-ML_IMAGE_TYPE = CELERY['image_type']
+ML_OBJECT_DETECTION_TASK_NAME = CELERY["object_detection_task"]
+ML_STORAGE_PATH = CELERY["storage_path"]
+ML_STORAGE_UPLOAD_PATH = CELERY["storage_upload_path"]
+ML_STORAGE_OBJECT_DETECTION_PATH = CELERY["storage_object_detection_path"]
+ML_IMAGE_TYPE = CELERY["image_type"]

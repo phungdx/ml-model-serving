@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from settings import config
 
-if config.ENVIRONMENT == 'production_no_db':
+if config.ENVIRONMENT == "production_no_db":
     SQLALCHEMY_DATABASE_URL = "sqlite:///./database.db"
     engine = create_engine(
         SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
@@ -23,6 +23,8 @@ else:
 
 
 from starlette.requests import Request
+
+
 def get_db(request: Request):
     return request.state.db
 

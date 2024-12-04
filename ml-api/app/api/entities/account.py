@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class Token(BaseModel):
-    token_type: Optional[str] = 'bearer'
+    token_type: Optional[str] = "bearer"
     access_token: Optional[str]
     refresh_token: Optional[str]
     expire_token: Optional[datetime]

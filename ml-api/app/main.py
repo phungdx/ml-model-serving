@@ -19,15 +19,25 @@ from api.r_v1 import router_v1
 from mq_main import redis
 
 
-
 # ++++++++++++++++++++++++++++++++++++++++++++ DEFINE APP +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-app = FastAPI(title=config.PROJECT_NAME, openapi_url="/api/openapi.json", docs_url="/api/docs", redoc_url="/api/redoc")
+app = FastAPI(
+    title=config.PROJECT_NAME,
+    openapi_url="/api/openapi.json",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+)
 
 
 # ++++++++++++++++++++++++++++++++++++++++++++ HANDLE LOG FILE +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-handler = TimedRotatingFileHandler('/logs/{}-{}-{}_{}h-00p-00.log'.format(
-    config.u.year, config.u.month, config.u.day , config.u.hour), when="midnight", interval=1, encoding='utf8')
+handler = TimedRotatingFileHandler(
+    "/logs/{}-{}-{}_{}h-00p-00.log".format(
+        config.u.year, config.u.month, config.u.day, config.u.hour
+    ),
+    when="midnight",
+    interval=1,
+    encoding="utf8",
+)
 handler.suffix = "%Y-%m-%d"
 handler.setFormatter(formatter)
 logger = logging.getLogger()
@@ -53,6 +63,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # ++++++++++++++++++++++++++++++++++++++++++++++ DB CONFIG ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 @app.middleware("http")
